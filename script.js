@@ -837,6 +837,6 @@ function clockMain(ClockClass) {
   setInterval(updater, 1 * 1000);
 }
 
-// clockMain(ScrollingClock);
+clockMain(ScrollingClock);
 // clockMain(AnalogPixelsClock);
-clockMain(BlockyClock);
+// clockMain(BlockyClock);
