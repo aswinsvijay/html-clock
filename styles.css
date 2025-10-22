@@ -39,7 +39,6 @@ body {
 
 .background-container {
   position: relative;
-  backdrop-filter: blur(10px);
 }
 
 .background {
