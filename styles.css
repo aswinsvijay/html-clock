@@ -19,7 +19,7 @@ body {
   align-items: center;
 }
 
-.clock-grid {
+#clock-grid {
   display: grid;
   width: 100%;
   height: 100%;
@@ -28,7 +28,7 @@ body {
 }
 
 @media (orientation: portrait) {
-  .clock-grid {
+  #clock-grid {
     display: grid;
     width: 100%;
     height: 100%;

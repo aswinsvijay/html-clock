@@ -819,11 +819,24 @@ class BlockyClock extends ClockBase {
 }
 
 /**
+ * @type {number | null}
+ */
+let updaterInterval = null;
+let index = -1;
+const clockClasses = [ScrollingClock, AnalogPixelsClock, BlockyClock];
+
+/**
  * @param {new (config: TimeZoneConfig) => ClockBase} ClockClass
  */
-function clockMain(ClockClass) {
-  const grid = document.getElementsByClassName("clock-grid")[0];
+function showClock(ClockClass) {
+  const grid = document.getElementById("clock-grid");
   const instances = configs.map((config) => new ClockClass(config));
+
+  if (!grid) {
+    return;
+  }
+
+  grid.innerHTML = "";
 
   instances.forEach((instance) => {
     grid.appendChild(instance.container);
@@ -833,10 +846,17 @@ function clockMain(ClockClass) {
     instances.forEach((x) => x.updateDisplay());
   }
 
+  updaterInterval && clearInterval(updaterInterval);
   updater();
-  setInterval(updater, 1 * 1000);
+  updaterInterval = setInterval(updater, 1 * 1000);
 }
 
-clockMain(ScrollingClock);
-// clockMain(AnalogPixelsClock);
-// clockMain(BlockyClock);
+function clockMain() {
+  index = (index + 1) % clockClasses.length;
+  showClock(clockClasses[index]);
+}
+
+document.addEventListener('click', (e) => clockMain());
+
+// Trigger initial display
+clockMain();
